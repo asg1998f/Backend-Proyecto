@@ -1,4 +1,5 @@
-const { Category } = require("../models/index")
+const { Category , Sequelize , Product } = require("../models/index")
+const{Op} = Sequelize;
 
 const CategoryController = {
     async create(req,res){
@@ -20,6 +21,37 @@ const CategoryController = {
 
         }
         
+    },
+    async getAll(req,res){
+        try {
+            const categories = await Category.findAll({
+                attributes:["name"],
+                include:{
+                    model:Product,
+                    attributes:["name","price"]
+                }
+            })
+            res.send({message:"Here are all the categpries",categories})
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({message:"There was a problem",error})
+        }
+    },
+    async getOneByName(req,res){
+        try {
+           const category = await  Category.findOne({
+                where: {
+                    name: {
+                        [Op.like]: `%${req.params.name}%`
+                    }
+                },
+            })
+            res.send(category)
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({message:"There was a problem",error})
+        }
     },
     async update(req,res){
         try {  await Category.update(req.body,
