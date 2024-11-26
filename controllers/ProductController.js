@@ -1,4 +1,4 @@
-const { Product , Sequelize } = require("../models/index")
+const { Product , Sequelize , Category } = require("../models/index")
 const{Op} = Sequelize;
 
 const ProductController = {
@@ -37,6 +37,21 @@ const ProductController = {
             res.status(500).send({message:"There was a problem",error})
         }
     },
+    async getAll(req,res){
+        try {
+            const products = await Product.findAll({
+                attributes:["name","price"],
+                include:{
+                    model:Category,
+                    attributes:["name"]
+                }
+            })
+            res.send({message:"Here are all the products",products})
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({message:"There was a problem",error})
+        }
+    },
     async update(req,res){
         try {  await Product.update(req.body,
             {
@@ -64,7 +79,8 @@ const ProductController = {
             console.error(error)
             res.status(500).send({message:"There was a problem",error})
         }
-    } 
+    },
+    async
 }
 
 module.exports = ProductController

@@ -5,7 +5,8 @@
     "database": "ebeers",
     "host": "127.0.0.1",
     "port":3307,
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "jwt_secret": "molamolamola"
   },
   "test": {
     "username": "root",
