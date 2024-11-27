@@ -1,6 +1,6 @@
 Gestión de Productos, Categorías, Pedidos y Usuarios
 Este proyecto es una API RESTful para gestionar productos, categorías, pedidos y usuarios. Está construida utilizando Node.js, Express y Sequelize con una base de datos relacional (MySQL o PostgreSQL).
-./path-to-your-image.png
+./"C:\Users\asg19\Pictures\Screenshots\Captura de pantalla 2024-11-19 162245.png"
 Características
 Usuarios: Registro, inicio de sesión, consulta de información y logout.
 Productos: CRUD completo con validaciones.
