@@ -33,7 +33,7 @@ const UserController ={
         await Token.create({token,UserId:user.id})
         res.send({token,message:"Successfully logged",user})
     },
-  /*   async logout(req, res) {
+    async logout(req, res) {
         try {
             await Token.destroy({
                 where: {
@@ -48,7 +48,7 @@ const UserController ={
             console.log(error)
             res.status(500).send({ message: 'There was a problem on disconnection' })
         }
-    }, */
+    },
     async getUserInfoLogged(req,res){
         try {
             const users = await User.findByPK(req.user.id,{

@@ -52,6 +52,37 @@ const ProductController = {
             res.status(500).send({message:"There was a problem",error})
         }
     },
+    async getByPrice(req,res){
+        try {
+            const{minPrice,maxPrice}= req.query
+
+            const products= await Product.findAll({
+                where:{
+                    price:{
+                        [Op.gte]: minPrice || 0,
+                        [Op.lte]: maxPrice || 10000,
+                    }
+                },
+                include: [Category]
+            })
+            res.status(200).send(products);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({message:"There was a problem",error})
+        }
+    },
+    async getOrderedByPrice(req,res){
+        try {
+            const products = await Product.findAll({
+                include: [Category],
+                order:[["price","DESC"]],
+            })
+            res.status(200).send(products)
+        } catch (error) {
+            console.error(error)
+            res.status(500).send({message:"There was a problem",error})
+        }
+    },
     async update(req,res){
         try {  await Product.update(req.body,
             {
@@ -80,7 +111,6 @@ const ProductController = {
             res.status(500).send({message:"There was a problem",error})
         }
     },
-    async
 }
 
 module.exports = ProductController
