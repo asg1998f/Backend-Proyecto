@@ -1,90 +1,51 @@
-Gestión de Productos, Categorías, Pedidos y Usuarios
-Este proyecto es una API RESTful para gestionar productos, categorías, pedidos y usuarios. Está construida utilizando Node.js, Express y Sequelize con una base de datos relacional (MySQL o PostgreSQL).
-./"C:\Users\asg19\Pictures\Screenshots\Captura de pantalla 2024-11-19 162245.png"
-Características
-Usuarios: Registro, inicio de sesión, consulta de información y logout.
-Productos: CRUD completo con validaciones.
-Categorías: CRUD completo con asociaciones a productos.
-Pedidos: Asociación entre usuarios y productos.
-Autenticación: Basada en JWT.
-Seeders: Datos iniciales para productos.
-Tecnologías
-Backend: Node.js con Express.
-Base de datos: Sequelize ORM.
-Autenticación: JSON Web Tokens (JWT).
-Validaciones: Sequelize y bcrypt.
-Requisitos
-Node.js (v16 o superior).
-Base de datos relacional (MySQL/PostgreSQL).
-Paquetes adicionales:
-express
-sequelize
-bcryptjs
-jsonwebtoken
-dotenv
-Instalación
-Clonar el repositorio.
+# 🛍️ E-Commerce Beers API 🍻
+Bienvenido al proyecto de API para gestionar un sistema básico de e-commerce. Este proyecto incluye gestión de usuarios, categorías, productos y pedidos. 🚀
 
-Instalar dependencias:
+# 🌟 Características principales
+Usuarios: Registro, login, validación y manejo de tokens JWT.
+Categorías: CRUD completo con filtros avanzados.
+Productos: CRUD con validación, filtros y autenticación.
+Pedidos: Gestión y visualización detallada de pedidos.
+Seguridad: Autenticación con bcrypt y JWT.
+Seeders: Datos predefinidos para pruebas rápidas.
 
-bash
-Copiar código
-npm install
-Configurar las variables de entorno:
+# 📂 Estructura de la API
+1. Categorías
+Endpoints CRUD:
+POST /categories: Crear una categoría.
+PUT /categories/:id: Actualizar una categoría.
+DELETE /categories/:id: Eliminar una categoría.
+GET /categories: Listar todas las categorías y sus productos.
+GET /categories/:id: Obtener una categoría por ID.
+Filtros:
+?name=nombre_categoria: Filtrar por nombre.
+2. Productos
+Endpoints CRUD:
+POST /products: Crear un producto (requiere autenticación).
+PUT /products/:id: Actualizar un producto (requiere autenticación).
+DELETE /products/:id: Eliminar un producto (requiere autenticación).
+GET /products: Listar productos con categorías asociadas.
+GET /products/:id: Obtener un producto por ID.
+Filtros:
+?name=nombre_producto: Filtrar por nombre.
+?price_min=10&price_max=50: Filtrar por rango de precios.
+?sort=desc: Ordenar productos por precio de mayor a menor.
+Validaciones: Todos los campos son obligatorios al crear o actualizar un producto.
+3. Pedidos
+Endpoints:
+POST /orders: Crear un pedido.
+GET /orders: Ver pedidos con detalles de productos asociados.
+4. Usuarios
+Endpoints:
+POST /users/register: Registrar un usuario (con bcrypt).
+POST /users/login: Login y generación de JWT.
+GET /users/me: Ver perfil del usuario autenticado y sus pedidos.
+POST /users/logout: Logout (invalida el token).
+Validaciones: Todos los campos son obligatorios al registrar un usuario.
 
-Crea un archivo .env con los valores para la base de datos, el puerto y el secreto JWT.
+# 🛠️ Tecnologías utilizadas
+Node.js: Backend.
+Express: Framework para la API.
+JWT: Autenticación segura.
+bcrypt: Encriptación de contraseñas.
 
-Crear las tablas en la base de datos:
-
-bash
-Copiar código
-npx sequelize db:migrate
-Cargar datos iniciales (opcional):
-
-bash
-Copiar código
-npx sequelize db:seed:all
-Iniciar el servidor:
-
-bash
-Copiar código
-npm start
-Endpoints
-Usuarios
-POST /users/create - Crear usuario.
-POST /users/login - Iniciar sesión.
-DELETE /users/logout - Cerrar sesión.
-GET /users/getInfo - Información del usuario autenticado.
-Productos
-POST /products - Crear producto.
-GET /products/getAll - Listar productos.
-PUT /products/id/:id - Actualizar producto.
-DELETE /products/id/:id - Eliminar producto.
-GET /products/name/:name - Buscar producto por nombre.
-Categorías
-POST /categories - Crear categoría.
-GET /categories/getAll - Listar categorías.
-PUT /categories/id/:id - Actualizar categoría.
-DELETE /categories/id/:id - Eliminar categoría.
-GET /categories/name/:name - Buscar categoría por nombre.
-Pedidos
-POST /orders - Crear pedido.
-GET /orders/getAll - Listar pedidos.
-Modelo de Base de Datos
-Usuarios:
-name
-email
-password (hash)
-role
-Productos:
-name
-price
-CategoryId
-Categorías:
-name
-Pedidos:
-description
-UserId
-Pruebas
-Instalar herramientas como Postman o Insomnia para probar los endpoints.
-Autenticación necesaria para algunos endpoints (token JWT).
