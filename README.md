@@ -1,6 +1,8 @@
 # 🛍️ E-Commerce Beers API 🍻
 Bienvenido al proyecto de API para gestionar un sistema básico de e-commerce. Este proyecto incluye gestión de usuarios, categorías, productos y pedidos. 🚀
 
+./
+
 # 🌟 Características principales
 Usuarios: Registro, login, validación y manejo de tokens JWT.
 Categorías: CRUD completo con filtros avanzados.
