@@ -1,8 +1,9 @@
-const { User, Token, Sequelize} = require("../models/index")
+const { User, Token, Sequelize, Order, Product} = require("../models/index")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const { jwt_secret} = require("../config/config.json")["development"]
 const {Op}= Sequelize
+
 
 
 const UserController ={
@@ -31,7 +32,7 @@ const UserController ={
         }
         let token = jwt.sign({id:user.id},jwt_secret)
         await Token.create({token,UserId:user.id})
-        res.send({token,message:"Successfully logged",user})
+        res.send({message:"Successfully logged" + user.name , token, user})
     },
     async logout(req, res) {
         try {
@@ -49,22 +50,24 @@ const UserController ={
             res.status(500).send({ message: 'There was a problem on disconnection' })
         }
     },
-    async getUserInfoLogged(req,res){
+    async getUserInfoLogged(req, res) {
         try {
-            const users = await User.findByPK(req.user.id,{
-                attributes:["description"],
-                model: Order,
-                include:{
-                    model:Product,
-                    attributes:["name","price"]
-                }
-            })
-            res.send({message:"Here are all the users",users})
+          const user = await User.findByPk(req.user.id,{
+            include: { 
+              attributes: ["description"],
+              model: Order, 
+              include:{
+                model: Product, 
+                attributes: ["name", "price"]
+              }
+              }
+          });
+          res.status(200).send({message: "Showing all the users", user});
         } catch (error) {
-            console.error(error);
-            res.status(500).send({message:"There was a problem",error})
+          console.error(error);
+          res.status(500).send({ message: "There was a problem", error });
         }
-    },
+      },
 }
 
 module.exports = UserController
